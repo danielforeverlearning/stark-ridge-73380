@@ -1,0 +1,21 @@
+{
+  "name": "stark-ridge-73380",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.heroku.com/stark-ridge-73380.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "formidable": "^1.1.1",
+    "fs": "0.0.1-security",
+    "http": "0.0.0"
+  }
+}
