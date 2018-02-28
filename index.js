@@ -30,24 +30,24 @@ http.createServer(function (req, res) {
     form.parse(req)
         .on('field', function(name,field) {
             console.log('Got a field:', name);
-            res.write('field name: ' + name + '</br>');
-            res.write('field: ' + field + '</br>');
+            res.write('field name: ' + name + '<br>');
+            res.write('field: ' + field + '<br>');
         })
         .on('file', function(name,file) {
             console.log('Got file:', name);
-            res.write('file name: ' + name + '</br>');
-            res.write('file.name: ' + file.name + '</br>');
-            res.write('file.path: ' + file.path + '</br>');
+            res.write('file name: ' + name + '<br>');
+            res.write('file.name: ' + file.name + '<br>');
+            res.write('file.path: ' + file.path + '<br>');
         })
         .on('error', function(err) {
             console.log('Got error: ');
             console.log(err);
-            res.write('got an error check console log</br>');
+            res.write('got an error check console log<br>');
             res.end();
         })
         .on('end', function() {
             console.log('Got end');
-            res.write('done</br>');
+            res.write('done<br>');
             res.end();
         });
 
