@@ -59,7 +59,7 @@ http.createServer(function (req, res) {
         input: fs.createReadStream(myfilename)
     });
 
-    lineReader.on('line', function(line) {
+    linereader.on('line', function(line) {
         res.write('<p>' + line + '</p>');
     });
 
