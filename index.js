@@ -2,6 +2,7 @@ var http       = require('http');
 var formidable = require('formidable');
 var dt         = require('./myfirstmodule');
 var fs         = require('fs');
+var rl         = require('readline');
 
 const PORT     = process.env.PORT || 5000
 
@@ -38,6 +39,16 @@ http.createServer(function (req, res) {
             res.write('<p>file name: ' + name + '</p>');
             res.write('<p>file.name: ' + file.name + '</p>');
             res.write('<p>file.path: ' + file.path + '</p>');
+
+            var linereader = rl.createInterface({
+                input: fs.createReadStream(file.path)
+            });
+
+            lineReader.on('line', function(line) {
+                res.write('<p>' + line + '</p>');
+            });
+
+
         })
         .on('error', function(err) {
             console.log('Got error: ');
