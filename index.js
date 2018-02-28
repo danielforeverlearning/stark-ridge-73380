@@ -39,16 +39,6 @@ http.createServer(function (req, res) {
             res.write('<p>file name: ' + name + '</p>');
             res.write('<p>file.name: ' + file.name + '</p>');
             res.write('<p>file.path: ' + file.path + '</p>');
-
-            var linereader = rl.createInterface({
-                input: fs.createReadStream(file.path)
-            });
-
-            lineReader.on('line', function(line) {
-                res.write('<p>' + line + '</p>');
-            });
-
-
         })
         .on('error', function(err) {
             console.log('Got error: ');
@@ -61,6 +51,14 @@ http.createServer(function (req, res) {
             res.write('<p>done</p>');
             res.end();
         });
+
+    var linereader = rl.createInterface({
+        input: fs.createReadStream(file.path)
+    });
+
+    lineReader.on('line', function(line) {
+        res.write('<p>' + line + '</p>');
+    });
 
   } else {
     res.writeHead(200, {'Content-Type': 'text/html'});
