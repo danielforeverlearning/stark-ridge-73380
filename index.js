@@ -10,21 +10,22 @@ var myfilename    = "";
 
 const PORT     = process.env.PORT || 5000
 
-
-var DoParseFile = function() {
-    myres.write('myfilename = ' + myfilename);
-    var linereader = rl.createInterface({
-        input: fs.createReadStream(myfilename)
-    });
-
-    linereader.on('line', function(line) {
-        myres.write('<p>Line from file:' + line + '</p>');
-    });
-}
-
-eventemitter.on('parsefile', DoParseFile);
-
 http.createServer(function (req, res) {
+
+  eventemitter.on('parsefile', DoParseFile);
+
+  var DoParseFile = function() {
+      res.write('myfilename = ' + myfilename);
+      var linereader = rl.createInterface({
+          input: fs.createReadStream(myfilename)
+      });
+
+      linereader.on('line', function(line) {
+          res.write('<p>Line from file:' + line + '</p>');
+      });
+  }
+
+
   if (req.url == '/fileupload') {
     var form = new formidable.IncomingForm();
 
