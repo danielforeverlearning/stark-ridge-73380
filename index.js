@@ -64,7 +64,7 @@ http.createServer(function (req, res) {
             res.write('<p>file name: ' + name + '</p>');
             res.write('<p>file.name: ' + file.name + '</p>');
             res.write('<p>file.path: ' + file.path + '</p>');
-            myfilename = file.path + '/' + file.name;
+            myfilename = file.path;
             eventemitter.emit('parsefile');
         })
         .on('error', function(err) {
