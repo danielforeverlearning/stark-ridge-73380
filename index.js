@@ -11,6 +11,7 @@ var mylines       = [];
 const PORT        = process.env.PORT || 5000
 
 var DoParseFile = function() {
+    console.log("Inside DoParseFile A");
     myres.write('myfilename = ' + myfilename);
     var linereader = rl.createInterface({
         input: fs.createReadStream(myfilename)
@@ -19,6 +20,11 @@ var DoParseFile = function() {
     linereader.on('line', function(line) {
         mylines.push(line);
         myres.write('line = ' + line);
+    });
+
+    linereader.on('error', function(err) {
+        console.log("DoParseFile error: ");
+        console.log(err);
     });
 }
 
