@@ -10,7 +10,7 @@ var myfilename    = "";
 const PORT     = process.env.PORT || 5000
 
 
-var DoParseFile = function() {
+var DoParseFile = function(res) {
     res.write('myfilename = ' + myfilename);
     var linereader = rl.createInterface({
         input: fs.createReadStream(myfilename)
@@ -19,7 +19,6 @@ var DoParseFile = function() {
     linereader.on('line', function(line) {
         res.write('<p>Line from file:' + line + '</p>');
     });
-
 }
 
 eventemitter.on('parsefile', DoParseFile);
