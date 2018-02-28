@@ -7,18 +7,21 @@ var events        = require('events');
 var eventemitter  = new events.EventEmitter();
 var myres;
 var myfilename    = "";
+var mylines       = [];
 const PORT        = process.env.PORT || 5000
 
 var DoParseFile = function() {
-      myres.write('myfilename = ' + myfilename);
-      var linereader = rl.createInterface({
-          input: fs.createReadStream(myfilename)
-      });
+    myres.write('myfilename = ' + myfilename);
+    var linereader = rl.createInterface({
+        input: fs.createReadStream(myfilename)
+    });
 
-      linereader.on('line', function(line) {
-          myres.write('<p>Line from file:' + line + '</p>');
-      });
+    linereader.on('line', function(line) {
+        mylines.push(line);
+        myres.write('line = ' + line);
+    });
 }
+
 
 eventemitter.on('parsefile', DoParseFile);
 
@@ -34,7 +37,6 @@ http.createServer(function (req, res) {
     //  res.write('oldpath at heroku is ');
     //  res.write(oldpath);
     //  res.end();
-
         //***** you do not know accessible filesystem at heroku machines *****
         //var newpath = '/home/max/nodejs_code/stark-ridge-73380/' + files.filetoupload.name;
         //fs.rename(oldpath, newpath, function (err) {
@@ -42,11 +44,9 @@ http.createServer(function (req, res) {
         //  res.write('File uploaded and moved!');
         //  res.end();
         //});
-      
     //});
 
     //***** do not get confused these console.log are server-side *****
-
     form.parse(req)
         .on('field', function(name,field) {
             console.log('Got a field:', name);
@@ -84,4 +84,5 @@ http.createServer(function (req, res) {
     return res.end();
   }
 }).listen(PORT); 
+
 
