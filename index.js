@@ -35,11 +35,13 @@ http.createServer(function (req, res) {
         .on('error', function(err) {
             console.log('Got error: ');
             console.log(err);
-            res.send({'success': false, error: err});
+            res.write('got an error check console log');
+            res.end();
         })
         .on('end', function() {
             console.log('Got end');
-            res.send({'success': true});
+            res.write('done');
+            res.end();
         });
 
   } else {
