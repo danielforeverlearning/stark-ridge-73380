@@ -1,21 +1,25 @@
-var http = require('http');
+var http       = require('http');
 var formidable = require('formidable');
-var dt   = require('./myfirstmodule');
-var fs   = require('fs');
+var dt         = require('./myfirstmodule');
+var fs         = require('fs');
 
-const PORT = process.env.PORT || 5000
+const PORT     = process.env.PORT || 5000
 
 http.createServer(function (req, res) {
   if (req.url == '/fileupload') {
     var form = new formidable.IncomingForm();
     form.parse(req, function (err, fields, files) {
       var oldpath = files.filetoupload.path;
-      var newpath = '/home/max/nodejs_code/stark-ridge-73380/' + files.filetoupload.name;
-      fs.rename(oldpath, newpath, function (err) {
-        if (err) throw err;
-        res.write('File uploaded and moved!');
-        res.end();
-      });
+      res.write('oldpath is');
+      res.write(oldpath);
+      res.end();
+      
+      //var newpath = '/home/max/nodejs_code/stark-ridge-73380/' + files.filetoupload.name;
+      //fs.rename(oldpath, newpath, function (err) {
+      //  if (err) throw err;
+      //  res.write('File uploaded and moved!');
+      //  res.end();
+      //});
     });
   } else {
     res.writeHead(200, {'Content-Type': 'text/html'});
