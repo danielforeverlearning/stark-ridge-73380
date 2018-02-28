@@ -25,12 +25,18 @@ http.createServer(function (req, res) {
       
     //});
 
+    //***** do not get confused these console.log are server-side *****
+
     form.parse(req)
         .on('field', function(name,field) {
             console.log('Got a field:', name);
+            res.write('field name: ' + name);
+            res.write('field value: ' + value);
         })
         .on('file', function(name,file) {
             console.log('Got file:', name);
+            res.write('file name: ' + name);
+            res.write('file value: ' + value);
         })
         .on('error', function(err) {
             console.log('Got error: ');
