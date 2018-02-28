@@ -5,19 +5,20 @@ var fs            = require('fs');
 var rl            = require('readline');
 var events        = require('events');
 var eventemitter  = new events.EventEmitter();
+var myres;
 var myfilename    = "";
 
 const PORT     = process.env.PORT || 5000
 
 
-var DoParseFile = function(res) {
-    res.write('myfilename = ' + myfilename);
+var DoParseFile = function() {
+    myres.write('myfilename = ' + myfilename);
     var linereader = rl.createInterface({
         input: fs.createReadStream(myfilename)
     });
 
     linereader.on('line', function(line) {
-        res.write('<p>Line from file:' + line + '</p>');
+        myres.write('<p>Line from file:' + line + '</p>');
     });
 }
 
@@ -57,6 +58,7 @@ http.createServer(function (req, res) {
             res.write('<p>file.name: ' + file.name + '</p>');
             res.write('<p>file.path: ' + file.path + '</p>');
             myfilename = file.path;
+            myres = res;
             eventemitter.emit('parsefile');
         })
         .on('error', function(err) {
