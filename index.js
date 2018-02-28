@@ -13,7 +13,7 @@ const PORT     = process.env.PORT || 5000
 var DoParseFile = function() {
     res.write('myfilename = ' + myfilename);
     var linereader = rl.createInterface({
-        input: fs.createReadStream(myfilename
+        input: fs.createReadStream(myfilename)
     });
 
     linereader.on('line', function(line) {
