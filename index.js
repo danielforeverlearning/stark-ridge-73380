@@ -1,11 +1,28 @@
-var http       = require('http');
-var formidable = require('formidable');
-var dt         = require('./myfirstmodule');
-var fs         = require('fs');
-var rl         = require('readline');
-var myfilename = "";
+var http          = require('http');
+var formidable    = require('formidable');
+var dt            = require('./myfirstmodule');
+var fs            = require('fs');
+var rl            = require('readline');
+var events        = require('events');
+var eventemitter  = new events.EventEmitter();
+var myfilename    = "";
 
 const PORT     = process.env.PORT || 5000
+
+
+var DoParseFile = function() {
+    res.write('myfilename = ' + myfilename);
+    var linereader = rl.createInterface({
+        input: fs.createReadStream(myfilename
+    });
+
+    linereader.on('line', function(line) {
+        res.write('<p>Line from file:' + line + '</p>');
+    });
+
+}
+
+eventemitter.on('parsefile', DoParseFile);
 
 http.createServer(function (req, res) {
   if (req.url == '/fileupload') {
@@ -40,7 +57,8 @@ http.createServer(function (req, res) {
             res.write('<p>file name: ' + name + '</p>');
             res.write('<p>file.name: ' + file.name + '</p>');
             res.write('<p>file.path: ' + file.path + '</p>');
-            myfilename = file.path + "/" + file.name;
+            myfilename = file.path;
+            eventemitter.emit('parsefile');
         })
         .on('error', function(err) {
             console.log('Got error: ');
@@ -53,16 +71,6 @@ http.createServer(function (req, res) {
             res.write('<p>done</p>');
             res.end();
         });
-
-    res.write('<p>myfilename: ' + myfilename + '</p>');
-    var linereader = rl.createInterface({
-        input: fs.createReadStream(myfilename)
-    });
-
-    linereader.on('line', function(line) {
-        res.write('<p>' + line + '</p>');
-    });
-
   } else {
     res.writeHead(200, {'Content-Type': 'text/html'});
     res.write('<form action="fileupload" method="post" enctype="multipart/form-data">');
