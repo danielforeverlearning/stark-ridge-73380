@@ -8,11 +8,9 @@ var eventemitter  = new events.EventEmitter();
 var myres;
 var myfilename    = "";
 
-const PORT     = process.env.PORT || 5000
+const PORT        = process.env.PORT || 5000
 
 http.createServer(function (req, res) {
-
-  eventemitter.on('parsefile', DoParseFile);
 
   var DoParseFile = function() {
       res.write('myfilename = ' + myfilename);
@@ -24,6 +22,8 @@ http.createServer(function (req, res) {
           res.write('<p>Line from file:' + line + '</p>');
       });
   }
+
+  eventemitter.on('parsefile', DoParseFile);
 
 
   if (req.url == '/fileupload') {
