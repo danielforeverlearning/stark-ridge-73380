@@ -31,12 +31,13 @@ http.createServer(function (req, res) {
         .on('field', function(name,field) {
             console.log('Got a field:', name);
             res.write('field name: ' + name);
-            res.write('field value: ' + value);
+            res.write('field: ' + field);
         })
         .on('file', function(name,file) {
             console.log('Got file:', name);
             res.write('file name: ' + name);
-            res.write('file value: ' + value);
+            res.write('file.name: ' + file.name);
+            res.write('file.path: ' + file.path);
         })
         .on('error', function(err) {
             console.log('Got error: ');
