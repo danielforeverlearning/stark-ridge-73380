@@ -46,8 +46,11 @@ http.createServer(function (req, res) {
             res.write('<p>mylines.length: ' + mylines.length + '</p>');
             for (ii=0; ii < mylines.length; ii++) {
                 var trimstr = mylines[ii].trim();
-                if (trimstr.length > 0)
+                if (trimstr.length > 0) {
                    res.write('<p>' + ii + ': ' + trimstr + '</p>');
+                   var temp = trimstr.split(' ');
+                   res.write('<p> count=' + temp[0] + ' cardname=' + temp[1] + '</p>');
+                }
                 else {
                    res.write('<p>' + ii + ': WHITESPACE FORGET IT</p>');
                 }
