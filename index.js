@@ -5,35 +5,12 @@ var fs            = require('fs');
 var rl            = require('readline');
 var events        = require('events');
 var eventemitter  = new events.EventEmitter();
-var myres;
 var myfilename    = "";
 var mylines       = [];
 const PORT        = process.env.PORT || 5000
 
-var DoParseFile = function() {
-    console.log("Inside DoParseFile A");
-    myres.write('myfilename = ' + myfilename);
-    var linereader = rl.createInterface({
-        input: fs.createReadStream(myfilename)
-    });
-
-    linereader.on('line', function(line) {
-        mylines.push(line);
-        myres.write('line = ' + line);
-    });
-
-    linereader.on('error', function(err) {
-        console.log("DoParseFile error: ");
-        console.log(err);
-    });
-}
-
-
-eventemitter.on('parsefile', DoParseFile);
 
 http.createServer(function (req, res) {
-
-  myres = res;
 
   if (req.url == '/fileupload') {
     var form = new formidable.IncomingForm();
@@ -65,7 +42,12 @@ http.createServer(function (req, res) {
             res.write('<p>file.name: ' + file.name + '</p>');
             res.write('<p>file.path: ' + file.path + '</p>');
             myfilename = file.path;
-            eventemitter.emit('parsefile');
+            mylines = fs.readFileSync(myfilename, 'utf-8').split('\n').filter(Boolean);
+            res.write('<p>mylines.length: ' + mylines.length + '</p>');
+            for (ii=0; ii < mylines.length; ii++) {
+                res.write('<p>line: ' + mylines[ii] + '</p>');
+            }
+
         })
         .on('error', function(err) {
             console.log('Got error: ');
