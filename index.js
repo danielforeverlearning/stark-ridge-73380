@@ -45,7 +45,8 @@ http.createServer(function (req, res) {
             mylines = fs.readFileSync(myfilename, 'utf-8').split('\n').filter(Boolean);
             res.write('<p>mylines.length: ' + mylines.length + '</p>');
             for (ii=0; ii < mylines.length; ii++) {
-                res.write('<p>line: ' + mylines[ii] + '</p>');
+                if (mylines[ii].length > 0)
+                   res.write('<p>' + ii + ': ' + mylines[ii] + '</p>');
             }
 
         })
