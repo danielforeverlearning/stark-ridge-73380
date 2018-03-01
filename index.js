@@ -51,7 +51,7 @@ http.createServer(function (req, res) {
                    var temp = trimstr.split(' ');
                    var cardcount;
                    var cardname = '';
-                   for (xx=0; xx < temp.length; tt++) {
+                   for (xx=0; xx < temp.length; xx++) {
                        if (xx==0)
                            cardcount = temp[0];
                        else if (xx==1) {
