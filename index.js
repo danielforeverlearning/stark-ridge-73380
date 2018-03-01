@@ -48,6 +48,9 @@ http.createServer(function (req, res) {
                 var trimstr = mylines[ii].trim();
                 if (trimstr.length > 0)
                    res.write('<p>' + ii + ': ' + trimstr + '</p>');
+                else {
+                   res.write('<p>' + ii + ': WHITESPACE FORGET IT</p>');
+                }
             }
 
         })
