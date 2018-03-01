@@ -49,7 +49,20 @@ http.createServer(function (req, res) {
                 if (trimstr.length > 0) {
                    res.write('<p>' + ii + ': ' + trimstr + '</p>');
                    var temp = trimstr.split(' ');
-                   res.write('<p> count=' + temp[0] + ' cardname=' + temp[1] + '</p>');
+                   var cardcount;
+                   var cardname = '';
+                   for (xx=0; xx < temp.length; tt++) {
+                       if (xx==0)
+                           cardcount = temp[0];
+                       else if (xx==1) {
+                           cardname  = temp[1];
+                       }
+                       else {
+                           cardname += ' ';
+                           cardname += temp[xx];
+                       }
+                   }
+                   res.write('<p>count=' + cardcount + ' cardname=' + cardname + '</p>');
                 }
                 else {
                    res.write('<p>' + ii + ': WHITESPACE FORGET IT</p>');
